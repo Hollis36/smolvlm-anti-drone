@@ -1,0 +1,29 @@
+# Core dependencies
+numpy>=1.24.0
+pillow>=10.0.0
+requests>=2.31.0
+pyyaml>=6.0
+tqdm>=4.66.0
+
+# Deep Learning (choose one backend)
+# MLX (recommended for Apple Silicon)
+mlx>=0.20.0
+mlx-lm>=0.20.0
+
+# OR Transformers + PyTorch (alternative)
+# transformers>=4.45.0
+# torch>=2.1.0
+# torchvision>=0.16.0
+
+# Hugging Face
+huggingface-hub>=0.26.0
+
+# Object Detection
+ultralytics>=8.0.0  # YOLOv8/v10
+
+# Optional: Other detectors
+# groundingdino  # Grounding DINO
+# segment-anything  # SAM
+
+# Utilities
+opencv-python>=4.8.0  # Video processing

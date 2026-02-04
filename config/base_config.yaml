@@ -1,0 +1,149 @@
+# SmolVLM Anti-Drone System Configuration
+
+# 模型配置
+model:
+  smolvlm:
+    name: "mlx-community/SmolVLM-Instruct-bf16"
+    backend: "mlx"  # mlx or transformers
+    device: "mps"   # mps, cuda, cpu
+    max_tokens: 100
+    temperature: 0.6
+    repetition_penalty: 1.2
+    cache_dir: "models/cache"
+    quantization:
+      enabled: false
+      bits: 4  # 2, 4, 8
+
+# 检测器配置
+detectors:
+  default: "yolov10"  # 默认检测器
+
+  yolov10:
+    model_path: "yolov10n.pt"
+    conf_threshold: 0.25
+    iou_threshold: 0.45
+    device: "mps"
+    classes: null  # null = 所有类别
+
+  yolov8:
+    model_path: "yolov8n.pt"
+    conf_threshold: 0.25
+    iou_threshold: 0.45
+    device: "mps"
+
+  sam2_1:
+    model_path: "sam2.1_l.pt"
+    device: "mps"
+    points_per_side: 32
+    pred_iou_thresh: 0.88
+    stability_score_thresh: 0.95
+
+  grounding_dino:
+    config_path: "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+    checkpoint: "groundingdino_swint_ogc.pth"
+    text_threshold: 0.25
+    box_threshold: 0.35
+    device: "mps"
+
+# 反无人机应用配置
+anti_drone:
+  # 威胁等级阈值
+  threat_levels:
+    low: 0.3
+    medium: 0.5
+    high: 0.7
+    critical: 0.9
+
+  # 性能配置
+  response_time_ms: 200
+  frame_skip: 5  # 视频处理时跳帧数
+  batch_size: 4
+
+  # 多模态融合
+  multimodal:
+    enabled: false
+    rgb_weight: 0.6
+    ir_weight: 0.4
+    iou_threshold: 0.3
+
+# 性能优化
+performance:
+  # 批处理
+  batch_processing:
+    enabled: true
+    batch_size: 8
+    max_workers: 4
+
+  # 缓存
+  cache:
+    enabled: true
+    cache_dir: ".cache/inference"
+    max_size_mb: 1024
+
+  # 异步处理
+  async_processing:
+    enabled: false
+    queue_size: 30
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  date_format: "%Y-%m-%d %H:%M:%S"
+  file:
+    enabled: true
+    path: "logs/app.log"
+    max_bytes: 10485760  # 10MB
+    backup_count: 5
+  console:
+    enabled: true
+
+# API 配置
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  workers: 4
+  cors:
+    enabled: true
+    allow_origins: ["*"]
+    allow_methods: ["*"]
+    allow_headers: ["*"]
+
+  # 限流
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+
+# 监控配置
+monitoring:
+  enabled: true
+  metrics:
+    - "processing_time_ms"
+    - "inference_time_ms"
+    - "detection_time_ms"
+    - "memory_usage_mb"
+
+  # Prometheus
+  prometheus:
+    enabled: false
+    port: 9090
+
+# 数据集配置
+dataset:
+  anti_uav:
+    data_dir: "data/train"
+    rgb_dir: "data/train/new2_train"
+    ir_dir: null  # 如果有 IR 数据
+    annotations: null
+
+  test:
+    data_dir: "data/test"
+    batch_size: 16
+
+# 实验配置
+experiment:
+  seed: 42
+  output_dir: "experiments/results"
+  save_predictions: true
+  save_visualizations: true
