@@ -1,5 +1,12 @@
 # SmolVLM Anti-Drone System (Refactored)
 
+[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![MLX](https://img.shields.io/badge/MLX-0.20+-orange.svg)](https://github.com/ml-explore/mlx)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![GitHub Stars](https://img.shields.io/github/stars/Hollis36/smolvlm-anti-drone?style=social)](https://github.com/Hollis36/smolvlm-anti-drone)
+
 > 基于 SmolVLM (2B 参数) 的轻量级多模态反无人机检测系统 - 重构版
 
 ## 项目特点
